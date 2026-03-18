@@ -15,11 +15,11 @@ export default function ProductCard({ product }: { product: Product }) {
           loading="lazy"
         />
       </div>
-      <div className="p-3">
-        <p className="text-xs text-muted-foreground font-body">{product.category_name}</p>
-        <h3 className="font-display font-semibold text-sm mt-0.5 line-clamp-1 text-card-foreground">{product.name}</h3>
-        <p className="text-xs text-muted-foreground font-body mt-0.5">by {product.artisan_name}</p>
-        <p className="text-base font-body font-bold text-primary mt-1">₹{product.price.toLocaleString('en-IN')}</p>
+      <div className="p-2 sm:p-3">
+        <p className="text-[10px] sm:text-xs text-muted-foreground font-body truncate">{product.category_name}</p>
+        <h3 className="font-display font-semibold text-xs sm:text-sm mt-0.5 line-clamp-1 text-card-foreground">{product.name}</h3>
+        <p className="text-[10px] sm:text-xs text-muted-foreground font-body mt-0.5 truncate">by {product.artisan_name}</p>
+        <p className="text-sm sm:text-base font-body font-bold text-primary mt-1">₹{product.price.toLocaleString('en-IN')}</p>
       </div>
     </Link>
   );
