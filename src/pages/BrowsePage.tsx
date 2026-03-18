@@ -38,20 +38,21 @@ export default function BrowsePage() {
   const hasMore = paginated.length < filtered.length;
 
   return (
-    <div className="container py-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-        <div>
-          <h1 className="text-2xl font-display font-bold text-foreground">
+    <div className="container py-6 sm:py-8 px-4 overflow-x-hidden">
+      <div className="flex flex-col gap-4 mb-6">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-display font-bold text-foreground truncate">
             {categorySlug ? CATEGORIES.find(c => c.slug === categorySlug)?.name || 'Browse' : query ? `Results for "${query}"` : 'All Products'}
           </h1>
-          <p className="text-sm text-muted-foreground font-body mt-1">{filtered.length} products found</p>
+          <p className="text-xs sm:text-sm text-muted-foreground font-body mt-1">{filtered.length} products found</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1 flex-wrap">
+
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex gap-1.5 flex-wrap">
             <Button
               variant={!categorySlug ? 'default' : 'outline'}
               size="sm"
-              className="font-body"
+              className="font-body text-xs"
               onClick={() => { searchParams.delete('category'); setSearchParams(searchParams); setPage(1); }}
             >
               All
@@ -61,15 +62,15 @@ export default function BrowsePage() {
                 key={cat.id}
                 variant={categorySlug === cat.slug ? 'default' : 'outline'}
                 size="sm"
-                className="font-body text-xs"
+                className="font-body text-[10px] sm:text-xs px-2 sm:px-3"
                 onClick={() => { searchParams.set('category', cat.slug); setSearchParams(searchParams); setPage(1); }}
               >
-                {cat.icon} {cat.name}
+                <span className="hidden sm:inline">{cat.icon} </span>{cat.name}
               </Button>
             ))}
           </div>
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-40 font-body">
+            <SelectTrigger className="w-full sm:w-40 font-body text-xs sm:text-sm shrink-0">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -83,11 +84,11 @@ export default function BrowsePage() {
 
       {filtered.length === 0 ? (
         <div className="text-center py-16">
-          <p className="text-lg text-muted-foreground font-body">No products found. Try a different search.</p>
+          <p className="text-base sm:text-lg text-muted-foreground font-body">No products found. Try a different search.</p>
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {paginated.map(p => <ProductCard key={p.id} product={p} />)}
           </div>
           {hasMore && (
