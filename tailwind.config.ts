@@ -14,8 +14,17 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Playfair Display", "Georgia", "serif"],
-        body: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        display: ["DM Serif Display", "Georgia", "serif"],
+        body: [
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "SF Pro Display",
+          "SF Pro Text",
+          "Helvetica Neue",
+          "system-ui",
+          "sans-serif",
+        ],
       },
       colors: {
         border: "hsl(var(--border))",
