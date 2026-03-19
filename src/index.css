@@ -92,6 +92,11 @@
     @apply bg-background text-foreground;
     font-family: var(--font-body);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1;
+    letter-spacing: -0.011em;
   }
 
   html {
@@ -100,6 +105,12 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+
+  p, span, a, li, label, input, button, textarea, select {
+    letter-spacing: -0.011em;
   }
 }
 
