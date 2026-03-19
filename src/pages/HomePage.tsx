@@ -242,7 +242,7 @@ export default function HomePage() {
                    artisan.craft_type === 'Embroidery' ? '🪡' :
                    artisan.craft_type === 'Bamboo' ? '🎋' : '🧵'}
                 </div>
-                <h3 className="text-sm font-display font-bold text-card-foreground truncate">{artisan.business_name}</h3>
+                <h3 className="text-sm font-display font-bold text-card-foreground truncate">{artisan.craft_type} Studio</h3>
                 <p className="text-[11px] sm:text-xs text-muted-foreground font-body mt-0.5">{artisan.craft_type}</p>
                 <p className="text-[10px] sm:text-xs text-muted-foreground font-body mt-0.5">{artisan.village}, {artisan.state}</p>
               </Link>
