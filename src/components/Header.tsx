@@ -1,9 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, Search, LogOut, LayoutDashboard, Menu, X } from 'lucide-react';
+import { ShoppingCart, User, Search, LogOut, LayoutDashboard, Menu, X, Settings, Heart } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { CATEGORIES } from '@/data/mockData';
 import { useState } from 'react';
 
@@ -65,43 +74,98 @@ export default function Header() {
           </Link>
 
           {user ? (
-            <div className="hidden sm:flex items-center gap-1">
-              {user.role === 'admin' && (
-                <Button variant="ghost" size="sm" onClick={() => navigate('/admin')} className="font-body text-xs px-2">
-                  <LayoutDashboard className="h-4 w-4 mr-1" /> Admin
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full hover:bg-secondary/80 transition-colors">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`} alt={user.name} />
+                    <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                      {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
                 </Button>
-              )}
-              {user.role === 'artisan' && (
-                <Button variant="ghost" size="sm" onClick={() => navigate('/seller')} className="font-body text-xs px-2">
-                  <LayoutDashboard className="h-4 w-4 mr-1" /> Dashboard
-                </Button>
-              )}
-              {user.role === 'buyer' && (
-                <Button variant="ghost" size="sm" onClick={() => navigate('/orders')} className="font-body text-xs px-2">
-                  Orders
-                </Button>
-              )}
-              <span className="text-xs font-body font-medium hidden lg:inline truncate max-w-[100px]">{user.name}</span>
-              <Button variant="ghost" size="icon" onClick={logout} className="h-8 w-8">
-                <LogOut className="h-4 w-4" />
-              </Button>
-            </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel className="flex flex-col space-y-1">
+                  <p className="text-sm font-semibold">{user.name}</p>
+                  <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {user.role === 'buyer' && (
+                  <>
+                    <DropdownMenuItem onClick={() => navigate('/orders')} className="cursor-pointer">
+                      <LayoutDashboard className="h-4 w-4 mr-2" />
+                      <span>My Orders</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="cursor-pointer">
+                      <Heart className="h-4 w-4 mr-2" />
+                      <span>Wishlist</span>
+                    </DropdownMenuItem>
+                  </>
+                )}
+                {user.role === 'admin' && (
+                  <DropdownMenuItem onClick={() => navigate('/admin')} className="cursor-pointer">
+                    <LayoutDashboard className="h-4 w-4 mr-2" />
+                    <span>Admin Dashboard</span>
+                  </DropdownMenuItem>
+                )}
+                {user.role === 'artisan' && (
+                  <DropdownMenuItem onClick={() => navigate('/seller')} className="cursor-pointer">
+                    <LayoutDashboard className="h-4 w-4 mr-2" />
+                    <span>Seller Dashboard</span>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem className="cursor-pointer">
+                  <Settings className="h-4 w-4 mr-2" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout} className="cursor-pointer text-destructive focus:text-destructive">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
-            <Button variant="default" size="sm" onClick={() => navigate('/login')} className="font-body text-xs hidden sm:flex">
-              <User className="h-4 w-4 mr-1" /> Login
+            <Button variant="default" size="sm" onClick={() => navigate('/login')} className="font-body text-xs hidden sm:flex gap-2 px-3">
+              <User className="h-4 w-4" /> Login
             </Button>
           )}
 
           {/* Mobile menu toggle */}
-          <Button variant="ghost" size="icon" className="sm:hidden h-8 w-8" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="sm:hidden h-9 w-9 border rounded-lg hover:bg-secondary transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            data-testid="button-menu-toggle"
+          >
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5 text-foreground" />
+            ) : (
+              <Menu className="h-5 w-5 text-foreground" />
+            )}
           </Button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-t border-border bg-background p-4 space-y-3">
+        <div className="sm:hidden border-t border-border bg-background/95 backdrop-blur p-4 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+          {user && (
+            <div className="flex items-center gap-3 pb-3 border-b border-border">
+              <Avatar className="h-10 w-10 border border-border">
+                <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`} alt={user.name} />
+                <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                  {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold truncate">{user.name}</p>
+                <p className="text-xs text-muted-foreground capitalize">{user.role}</p>
+              </div>
+            </div>
+          )}
           <form onSubmit={handleSearch}>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -119,28 +183,36 @@ export default function Header() {
                 key={cat.id}
                 to={`/browse?category=${cat.slug}`}
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-1.5 text-xs font-body font-medium text-muted-foreground bg-secondary rounded-md"
+                className="px-3 py-1.5 text-xs font-body font-medium text-muted-foreground bg-secondary rounded-md hover:bg-secondary/80 transition-colors"
               >
                 {cat.icon} {cat.name}
               </Link>
             ))}
           </div>
           {user ? (
-            <div className="flex flex-wrap gap-2 pt-2 border-t border-border">
+            <div className="flex flex-col gap-2 pt-2 border-t border-border">
               {user.role === 'admin' && (
-                <Button variant="outline" size="sm" onClick={() => { navigate('/admin'); setMobileMenuOpen(false); }} className="font-body text-xs">Admin</Button>
+                <Button variant="outline" size="sm" onClick={() => { navigate('/admin'); setMobileMenuOpen(false); }} className="font-body text-xs justify-start">
+                  <LayoutDashboard className="h-4 w-4 mr-2" /> Admin Dashboard
+                </Button>
               )}
               {user.role === 'artisan' && (
-                <Button variant="outline" size="sm" onClick={() => { navigate('/seller'); setMobileMenuOpen(false); }} className="font-body text-xs">Dashboard</Button>
+                <Button variant="outline" size="sm" onClick={() => { navigate('/seller'); setMobileMenuOpen(false); }} className="font-body text-xs justify-start">
+                  <LayoutDashboard className="h-4 w-4 mr-2" /> Seller Dashboard
+                </Button>
               )}
               {user.role === 'buyer' && (
-                <Button variant="outline" size="sm" onClick={() => { navigate('/orders'); setMobileMenuOpen(false); }} className="font-body text-xs">Orders</Button>
+                <Button variant="outline" size="sm" onClick={() => { navigate('/orders'); setMobileMenuOpen(false); }} className="font-body text-xs justify-start">
+                  <LayoutDashboard className="h-4 w-4 mr-2" /> My Orders
+                </Button>
               )}
-              <Button variant="outline" size="sm" onClick={() => { logout(); setMobileMenuOpen(false); }} className="font-body text-xs">Logout</Button>
+              <Button variant="outline" size="sm" onClick={() => { logout(); setMobileMenuOpen(false); }} className="font-body text-xs justify-start text-destructive hover:text-destructive">
+                <LogOut className="h-4 w-4 mr-2" /> Logout
+              </Button>
             </div>
           ) : (
-            <Button variant="default" size="sm" onClick={() => { navigate('/login'); setMobileMenuOpen(false); }} className="w-full font-body text-xs">
-              <User className="h-4 w-4 mr-1" /> Login
+            <Button variant="default" size="sm" onClick={() => { navigate('/login'); setMobileMenuOpen(false); }} className="w-full font-body text-xs gap-2">
+              <User className="h-4 w-4" /> Login
             </Button>
           )}
         </div>
