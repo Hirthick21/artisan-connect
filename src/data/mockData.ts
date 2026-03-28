@@ -18,16 +18,90 @@ const VILLAGES = ['Jaipur', 'Kutch', 'Varanasi', 'Shantiniketan', 'Mahabalipuram
 const CRAFT_TYPES = ['Potter', 'Weaver', 'Woodcarver', 'Metalsmith', 'Bamboo Artisan', 'Jeweler', 'Painter', 'Leather Worker', 'Stone Carver', 'Embroiderer'];
 
 const PRODUCT_NAMES: Record<string, string[]> = {
-  'cat-1': ['Terracotta Vase', 'Blue Pottery Plate', 'Clay Diya Set', 'Ceramic Mug', 'Pottery Bowl'],
-  'cat-2': ['Banarasi Silk Scarf', 'Khadi Cotton Stole', 'Ikat Cushion Cover', 'Handloom Saree', 'Woven Table Runner'],
-  'cat-3': ['Carved Elephant', 'Wooden Chess Set', 'Sandalwood Box', 'Teak Serving Tray', 'Rosewood Bookend'],
-  'cat-4': ['Brass Diya', 'Copper Water Bottle', 'Bell Metal Bowl', 'Iron Candle Stand', 'Bronze Figurine'],
-  'cat-5': ['Bamboo Basket', 'Cane Chair', 'Bamboo Lamp', 'Woven Mat', 'Bamboo Wind Chime'],
-  'cat-6': ['Silver Jhumka', 'Kundan Necklace', 'Lac Bangle Set', 'Temple Earrings', 'Oxidized Anklet'],
-  'cat-7': ['Madhubani Canvas', 'Warli Art Frame', 'Miniature Painting', 'Pattachitra Scroll', 'Kalamkari Print'],
-  'cat-8': ['Leather Journal', 'Mojari Shoes', 'Leather Sling Bag', 'Wallet with Block Print', 'Leather Belt'],
-  'cat-9': ['Marble Taj Replica', 'Soapstone Box', 'Granite Mortar Set', 'Stone Incense Holder', 'Carved Deity'],
-  'cat-10': ['Phulkari Dupatta', 'Chikankari Kurta Fabric', 'Kantha Throw', 'Zardozi Clutch', 'Mirror Work Cushion'],
+  'cat-1': ['Terracotta Vase', 'Blue Pottery Plate', 'Clay Diya Set', 'Ceramic Mug', 'Pottery Bowl', 'Handmade Ceramic Plate', 'Rustic Clay Bowl', 'Decorated Pottery Jar'],
+  'cat-2': ['Banarasi Silk Scarf', 'Khadi Cotton Stole', 'Ikat Cushion Cover', 'Handloom Saree', 'Woven Table Runner', 'Hand-dyed Fabric', 'Jute Weave Rug', 'Silk Pashmina Shawl'],
+  'cat-3': ['Carved Elephant', 'Wooden Chess Set', 'Sandalwood Box', 'Teak Serving Tray', 'Rosewood Bookend', 'Hand-carved Mirror Frame', 'Wooden Jewelry Box', 'Decorative Wooden Bowl'],
+  'cat-4': ['Brass Diya', 'Copper Water Bottle', 'Bell Metal Bowl', 'Iron Candle Stand', 'Bronze Figurine', 'Hammered Copper Plate', 'Brass Incense Holder', 'Metal Water Jug'],
+  'cat-5': ['Bamboo Basket', 'Cane Chair', 'Bamboo Lamp', 'Woven Mat', 'Bamboo Wind Chime', 'Decorative Bamboo Screen', 'Cane Storage Box', 'Bamboo Plant Stand'],
+  'cat-6': ['Silver Jhumka', 'Kundan Necklace', 'Lac Bangle Set', 'Temple Earrings', 'Oxidized Anklet', 'Pearl Pendant', 'Statement Ring', 'Gemstone Bracelet'],
+  'cat-7': ['Madhubani Canvas', 'Warli Art Frame', 'Miniature Painting', 'Pattachitra Scroll', 'Kalamkari Print', 'Acrylic Abstract Art', 'Watercolor Landscape', 'Folk Art Mural'],
+  'cat-8': ['Leather Journal', 'Mojari Shoes', 'Leather Sling Bag', 'Wallet with Block Print', 'Leather Belt', 'Embossed Leather Pouch', 'Handstitched Saddle Bag', 'Vintage Leather Satchel'],
+  'cat-9': ['Marble Taj Replica', 'Soapstone Box', 'Granite Mortar Set', 'Stone Incense Holder', 'Carved Deity', 'Stone Wall Hanging', 'Sculptured Stone Planter', 'Engraved Stone Coaster Set'],
+  'cat-10': ['Phulkari Dupatta', 'Chikankari Kurta Fabric', 'Kantha Throw', 'Zardozi Clutch', 'Mirror Work Cushion', 'Embroidered Wall Hanging', 'Beaded Cushion Cover', 'Hand-embroidered Saree'],
+};
+
+// Real image URLs for each category from Unsplash
+const CATEGORY_IMAGES: Record<string, string[]> = {
+  'cat-1': [
+    'https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578420217221-20a50b0e3684?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519382-a4c944fa7d8f?w=600&h=600&fit=crop',
+  ],
+  'cat-2': [
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1523821741446-edb429493601?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1546005881-b72b27e84530?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1598084993000-6b96de3dd969?w=600&h=600&fit=crop',
+  ],
+  'cat-3': [
+    'https://images.unsplash.com/photo-1611275426394-18b526f13dcd?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1601114921884-f4c54caf2e1a?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578601738722-e2b58c39e16f?w=600&h=600&fit=crop',
+  ],
+  'cat-4': [
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1611081857486-e89f3ee4abf7?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1599643478104-b129e5ea2e94?w=600&h=600&fit=crop',
+  ],
+  'cat-5': [
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1567538626872-8500b5e20ea4?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1596909124669-c622ee4a9a9f?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=600&h=600&fit=crop',
+  ],
+  'cat-6': [
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1581974267369-3c91f3038989?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1565721976498-e9ddb7069eb8?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop',
+  ],
+  'cat-7': [
+    'https://images.unsplash.com/photo-1578926314433-e2789279f4aa?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578982981159-cb29ebf0b0c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1577720643272-265f434879a6?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1567353021948-b91a9f9f0a1b?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578926314433-e2789279f4aa?w=600&h=600&fit=crop',
+  ],
+  'cat-8': [
+    'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1548698314-d92bcc672f68?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1590736969955-71cc94901144?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1576956031262-e8cff670f3db?w=600&h=600&fit=crop',
+  ],
+  'cat-9': [
+    'https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1600298881974-6be191ceeda1?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578500494198-246f612d03b3?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1578924519327-21f13feac3c3?w=600&h=600&fit=crop',
+  ],
+  'cat-10': [
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1593642632632-2c5a58f75e45?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1546005881-b72b27e84530?w=600&h=600&fit=crop',
+  ],
 };
 
 function generateId() {
@@ -65,16 +139,15 @@ const artisanUsers: User[] = [];
 const artisanProfiles: ArtisanProfile[] = [];
 const allProducts: Product[] = [];
 
-for (let i = 0; i < 60; i++) {
-  const stateIdx = i % 10;
-  const craftIdx = i % 10;
-  const catId = CATEGORIES[craftIdx].id;
+// Create 10 artisans (one per category)
+for (let i = 0; i < 10; i++) {
+  const stateIdx = i;
+  const craftIdx = i;
   const userId = `artisan-${i + 1}`;
-  const isApproved = i < 45; // 45 approved, 15 pending
 
   artisanUsers.push({
     id: userId,
-    name: `Artisan ${VILLAGES[stateIdx]} ${i + 1}`,
+    name: `${CRAFT_TYPES[craftIdx]} from ${VILLAGES[stateIdx]}`,
     email: `artisan${i + 1}@artnet.local`,
     role: 'artisan',
     created_at: randomDate(180),
@@ -87,43 +160,47 @@ for (let i = 0; i < 60; i++) {
     village: VILLAGES[stateIdx],
     district: VILLAGES[stateIdx],
     state: STATES[stateIdx],
-    bio: `Traditional ${CRAFT_TYPES[craftIdx].toLowerCase()} from ${VILLAGES[stateIdx]}, ${STATES[stateIdx]}. Carrying forward a family tradition of over ${randomInt(2, 8)} generations.`,
-    approval_status: isApproved ? 'approved' : 'pending',
-    approved_at: isApproved ? randomDate(90) : undefined,
-    approved_by: isApproved ? 'admin-1' : undefined,
+    bio: `Master ${CRAFT_TYPES[craftIdx].toLowerCase()} from ${VILLAGES[stateIdx]}, ${STATES[stateIdx]}. Carrying forward a family tradition of over ${randomInt(3, 10)} generations with authentic craftsmanship.`,
+    approval_status: 'approved',
+    approved_at: randomDate(90),
+    approved_by: 'admin-1',
     created_at: randomDate(180),
     updated_at: randomDate(30),
   });
+}
 
-  // Generate products for approved artisans
-  if (isApproved) {
-    const productNames = PRODUCT_NAMES[catId] || PRODUCT_NAMES['cat-1'];
-    const numProducts = Math.min(randomInt(5, 10), productNames.length + 5);
-    for (let j = 0; j < numProducts; j++) {
-      const pName = j < productNames.length
-        ? productNames[j]
-        : `${productNames[j % productNames.length]} #${j + 1}`;
-      const isProductApproved = j < numProducts - 1; // last product pending
-      allProducts.push({
-        id: `prod-${i}-${j}`,
-        artisan_id: userId,
-        artisan_name: `Artisan ${VILLAGES[stateIdx]} ${i + 1}`,
-        category_id: catId,
-        category_name: CATEGORIES[craftIdx].name,
-        name: pName,
-        description: `Handcrafted ${pName.toLowerCase()} made with traditional techniques passed down through generations.`,
-        story: `This ${pName.toLowerCase()} is crafted in the village of ${VILLAGES[stateIdx]}, using methods that have been practiced for centuries.`,
-        material: ['Clay', 'Silk', 'Teak Wood', 'Brass', 'Bamboo', 'Silver', 'Natural Dyes', 'Leather', 'Marble', 'Cotton'][craftIdx],
-        time_to_make: `${randomInt(2, 30)} days`,
-        price: randomInt(150, 15000),
-        stock: randomInt(1, 50),
-        images: [`https://picsum.photos/seed/${i}-${j}/600/600`],
-        approval_status: isProductApproved ? 'approved' : 'pending',
-        is_active: isProductApproved,
-        created_at: randomDate(90),
-        updated_at: randomDate(14),
-      });
-    }
+// Create exactly 50 products - 5 per category
+for (let catIdx = 0; catIdx < 10; catIdx++) {
+  const catId = CATEGORIES[catIdx].id;
+  const productNames = PRODUCT_NAMES[catId] || PRODUCT_NAMES['cat-1'];
+  const categoryImages = CATEGORY_IMAGES[catId] || CATEGORY_IMAGES['cat-1'];
+  const artisanIdx = catIdx;
+  const userId = `artisan-${artisanIdx + 1}`;
+
+  // Create 5 products per category
+  for (let j = 0; j < 5; j++) {
+    const pName = productNames[j] || `${productNames[j % productNames.length]} ${j + 1}`;
+    const imageUrl = categoryImages[j % categoryImages.length];
+
+    allProducts.push({
+      id: `prod-${catIdx}-${j}`,
+      artisan_id: userId,
+      artisan_name: `${CRAFT_TYPES[artisanIdx]} from ${VILLAGES[artisanIdx]}`,
+      category_id: catId,
+      category_name: CATEGORIES[catIdx].name,
+      name: pName,
+      description: `Authentic handcrafted ${pName.toLowerCase()} created using traditional techniques and premium materials. Each piece is unique and made with care.`,
+      story: `This ${pName.toLowerCase()} is skillfully crafted in ${VILLAGES[artisanIdx]}, ${STATES[artisanIdx]} using methods passed down through generations of artisans.`,
+      material: ['Clay', 'Silk', 'Teak Wood', 'Brass', 'Bamboo', 'Silver', 'Natural Dyes', 'Leather', 'Marble', 'Cotton'][artisanIdx],
+      time_to_make: `${randomInt(3, 25)} days`,
+      price: randomInt(299, 12999),
+      stock: randomInt(5, 40),
+      images: [imageUrl],
+      approval_status: 'approved',
+      is_active: true,
+      created_at: randomDate(90),
+      updated_at: randomDate(14),
+    });
   }
 }
 
